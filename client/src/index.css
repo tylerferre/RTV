@@ -1,0 +1,290 @@
+* {
+  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    outline: none;
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+}
+
+body{
+  margin: 0;
+  background-color: #242424;
+  color: #ffffff;
+  cursor: default;
+}
+
+body::-webkit-scrollbar{
+    display: none;
+}
+
+button{
+  cursor: pointer;
+}
+
+input:focus{
+  background-color: #fd6bff8d;
+}
+
+input::placeholder{
+  color: #444444;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 40px;
+  background-color: #454545;
+  border-bottom: 1px solid #c9c3b8;
+}
+
+.navbar > button {
+  padding: 2px;
+  background-color: #454545;
+  color: #c9c3b8;
+}
+
+.navbar > a {
+  color: #c9c3b8;
+}
+
+.authContainer{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 100px;
+}
+
+.authContainer > h1 {
+  font-size: 2em;
+  margin: 25px;
+}
+
+.authContainer > p {
+  margin: 15px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.authContainer > form {
+  border: 1px solid #c9c3b8;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #565656;
+  display: flex;
+  flex-direction: column;
+}
+
+.authContainer > form > p {
+  max-width: 200px;
+  text-align: center;
+}
+
+.authContainer > form > input,
+.authContainer > form > button {
+  margin: 15px 8px;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+.authContainer > form > button{
+  /* background: linear-gradient(145deg, #838383, #252525); */
+  background: linear-gradient(145deg, #b000b3, #4a0058);
+  color: #ffffff;
+  text-shadow: 1.5px 1.5px black;
+}
+
+.issueList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.issueForm > button{
+  background: linear-gradient(145deg, #b000b3, #4a0058);
+  color: #ffffff;
+  text-shadow: 1.5px 1.5px black;
+}
+
+.issue {
+  background-color: #565656;
+  margin: 15px;
+  padding: 15px;
+  border-radius: 10px;
+  width: 300px;
+  border: 1px solid #a5a5a5;
+}
+
+.issue > h1 {
+  text-shadow: 2px 2px black;
+  margin-bottom: 6px;
+  text-decoration: underline;
+}
+
+.issue > p {
+  color: #a5a5a5;
+}
+
+.issueName{
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color: #5e0070;
+  text-shadow: 1px 1px #000000;
+  border-bottom: 1px solid #444444;
+  margin-bottom: 2px;
+  font-size: 22px;
+}
+
+.voteButtons{
+  display: flex;
+}
+
+.up > button {
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+  margin: 5px;
+}
+
+.up > button:hover{
+  color: #0c0c0c;
+}
+
+.down > button {
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+  margin: 5px;
+}
+
+.down > button:hover{
+  color: #0c0c0c
+}
+
+.votes{
+  display: flex;
+  margin: 5px 10px 0px;
+  gap: 20px;
+}
+
+.up, .down{
+  display: flex;
+  align-items: center;
+}
+
+.up{
+  margin-right: 6px;
+}
+
+.public {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.public > h3 {
+  margin-top: 30px;
+  text-align: center;
+  text-decoration: underline;
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+}
+
+.profile > h1 {
+  margin: 8px;
+  font-size: 2em;
+  text-align: center;
+}
+
+.profile > h3 {
+  margin: 15px 0;
+  text-decoration: underline;
+}
+
+.profile > form {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+  border: 1px solid #c9c3b8;
+  background-color: #565656;
+  padding: 16px;
+  border-radius: 5px
+}
+
+.profile > form > input,
+.profile > form > button {
+  margin: 8px 0;
+  padding: 8px;
+  border-radius: 5px
+}
+
+.profile > form > button{
+  background-color: #a5a5a5;
+}
+
+.commentForm{
+  display: flex;
+  align-items: center;
+}
+
+.commentForm > input {
+  height: 25px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.commentForm > button {
+  height: 25px;
+  padding: 5px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(145deg, #b000b3, #4a0058);
+  color: #ffffff;
+}
+
+.commentList{
+  background-color: #454545;
+  padding: 8px;
+  width: 230px;
+  border-radius: 10px;
+  border: 1px solid #a5a5a5;
+  max-height: 70px;
+  overflow-y: scroll;
+}
+
+.commentList::-webkit-scrollbar{
+  width: 5px;
+  height: 10px;
+  border-radius: 10px;
+}
+
+.commentList::-webkit-scrollbar-thumb{
+  background: #c9c3b8;
+  border-radius: 10px;
+  height: 1px;
+}
+
+.comment{
+  color: #dcd7ce;
+}
+
+.comment > hr{
+  height: 1px;
+  background-color: #a5a5a5;
+  border: none;
+  margin: 5px 0;
+}
+
+.commentName{
+  color: #ffffff;
+}
+
+.commentBtn{
+  margin: 5px;
+}
