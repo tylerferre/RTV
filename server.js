@@ -4,12 +4,16 @@ require('dotenv').config()
 const morgan = require('morgan')
 const mongoose = require('mongoose')
 const { expressjwt } = require('express-jwt')
+const path = require('path')
+uri = process.env.URI
+process.env.SEVRET
 
 app.use(express.json())
 app.use(morgan('dev'))
+app.use(express.static(path.join(__dirname, "client", "dist")))
 
 mongoose.connect(
-    'mongodb://localhost:27017/rtv-db',
+    uri,
     () => console.log('Connected to DB')
 )
 
@@ -24,6 +28,10 @@ app.use((err, req, res, next) => {
         res.status(err.status)
     }
     return res.send({errMsg: err.message})
+})
+
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "dist", "index.html"))
 })
 
 app.listen(9000, () => {

@@ -107,7 +107,16 @@ const UserProvider = (props) => {
                 ...prevState,
                 issues: [...prevState.issues, res.data]
             }))
+            getUserIssues()
         })
+        .catch(err => console.log(err.response.data.errMsg))
+    }
+
+    const deleteIssue = (issueId) => {
+        userAxios.delete(`/proxy/api/issue/${issueId}`)
+        .then(res => setUserState(prevState => (
+            {...prevState, issues: prevState.issues.filter(issue => issue._id !== issueId)}
+        )))
         .catch(err => console.log(err.response.data.errMsg))
     }
 
@@ -147,6 +156,13 @@ const UserProvider = (props) => {
         .catch(err => console.log(err.response.data.errMsg))
     }
 
+    const deleteComment = (commentId) => {
+        userAxios.delete(`proxy/api/comment/${commentId}`)
+        .then(res => setComments(prevState => (
+            prevState.filter(item => item._id !== commentId))))
+        .catch(err => console.log(err.response.data.errMsg))
+    }
+
     useEffect(()=>{
         getComments()
     }, [userState])
@@ -159,15 +175,17 @@ const UserProvider = (props) => {
                 login,
                 logout,
                 addIssue,
+                deleteIssue,
                 getUserIssues,
                 addComment,
                 getComments,
+                deleteComment,
                 comments,
                 getPublicIssues,
                 resetAuthErr,
                 upVote,
                 downVote,
-                setUserState
+                setUserState,
             }}
         >
             {props.children}

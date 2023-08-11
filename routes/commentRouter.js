@@ -1,14 +1,13 @@
 const express = require('express')
 const commentRouter = express.Router()
 const Comment = require('../models/Comment.js')
-const Issue = require('../models/Issue.js')
 const User = require('../models/User.js')
 
 // Get commnets for issue
 commentRouter.get('/:issueId', async (req, res, next) => {
   try {
     const comments = await Comment.find({ issue: req.params.issueId })
-      .sort({ createdAt: -1 })
+      .sort({ createAt: -1 })
       .populate({
         path: 'user',
         select: 'username',
@@ -22,7 +21,7 @@ commentRouter.get('/:issueId', async (req, res, next) => {
 
 commentRouter.get('/', async (req, res, next) => {
     try {
-      const comments = await Comment.find().sort({ createdAt: -1 }).populate({
+      const comments = await Comment.find().sort({ createAt: -1 }).populate({
         path: 'user',
         select: 'username',
       });
@@ -57,7 +56,7 @@ commentRouter.post(
         const savedComment = await newComment.save();
         await savedComment.populate({
           path: 'user',
-          select: 'username profileImage',
+          select: 'username',
         });
         return res.status(201).send(savedComment);
       } catch (err) {

@@ -4,7 +4,7 @@ const Issue = require('../models/Issue.js')
 
 // Get All Issues
 issueRouter.get('/', (req, res, next) => {
-    Issue.find().populate('user').exec((err, issues) => {
+    Issue.find().populate('user').sort({createdAt: -1}).exec((err, issues) => {
         if(err){
             res.status(500)
             return next(err)
@@ -14,7 +14,7 @@ issueRouter.get('/', (req, res, next) => {
 })
 
 issueRouter.get('/public/issue', (req, res, next) => {
-    Issue.find().populate('user').exec((err, issues) => {
+    Issue.find().populate('user').sort({createdAt: -1}).exec((err, issues) => {
         if(err){
             res.status(500)
             return next(err)
@@ -25,7 +25,7 @@ issueRouter.get('/public/issue', (req, res, next) => {
 
 // Get issues by user Id 
 issueRouter.get('/user', (req, res, next) => {
-    Issue.find({user: req.auth._id}).populate('user').exec((err, issues) => {
+    Issue.find({user: req.auth._id}).populate('user').sort({createdAt: -1}).exec((err, issues) => {
         if(err){
             res.status(500)
             return next(err)
@@ -85,14 +85,13 @@ issueRouter.put('/upVote/:issueId', (req, res, next) => {
             $pull: {downVotes: req.auth._id}
         },
         {new: true},
-        (err, updatedIssue) => {
-            if(err){
-                res.status(500)
-                return next(err)
-            }
-            return res.status(201).send(updatedIssue)
+    ).populate("user").exec((err, updatedIssue) => {
+        if(err){
+            res.status(500)
+            return next(err)
         }
-    )
+        return res.status(201).send(updatedIssue)
+    })
 })
 
 // Down Vote
@@ -102,15 +101,14 @@ issueRouter.put('/downVote/:issueId', (req, res, next) => {
         {$addToSet: {downVotes: req.auth._id}, 
             $pull : {upVotes: req.auth._id}
         },
-        {new: true},
-        (err, updatedIssue) => {
-            if(err){
-                res.status(500)
-                return next(err)
-            }
-            return res.status(201).send(updatedIssue)
+        {new: true}
+    ).populate("user").exec((err, updatedIssue) => {
+        if(err){
+            res.status(500)
+            return next(err)
         }
-    )
+        return res.status(201).send(updatedIssue)
+    })
 })
 
 module.exports = issueRouter

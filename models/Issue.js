@@ -26,7 +26,13 @@ const issueSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User',
         required: true
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+        required: true
     }
+    
 })
 
 module.exports = mongoose.model('Issue', issueSchema)
