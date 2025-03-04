@@ -50,8 +50,8 @@ const Issue = (props) => {
             <div className="votes">
             </div>
             <div className="voteButtons">
-                <div className="up"><button onClick={votes}><span style={filteredUpVotes.length === 1 ? {color: '#5e0070'} : {color: 'black'}} className="material-symbols-rounded">thumb_up</span></button><h3>{props.upVotes.length}</h3></div>
-                <div className="down"><button onClick={votes}><span style={filteredDownVotes.length === 1 ? {color: '#5e0070'} : {color: 'black'}} className="material-symbols-rounded">thumb_down</span></button><h3>{props.downVotes.length}</h3></div>
+                <div className="up"><button onClick={votes}><span style={filteredUpVotes.length === 1 ? {color: '#440078'} : {color: 'grey'}} className="material-symbols-rounded">thumb_up</span></button><h3>{props.upVotes.length}</h3></div>
+                <div className="down"><button onClick={votes}><span style={filteredDownVotes.length === 1 ? {color: '#440078'} : {color: 'grey'}} className="material-symbols-rounded">thumb_down</span></button><h3>{props.downVotes.length}</h3></div>
             </div>
                 <CommentForm addComment={addComment} issueId={props._id} setTrue={setTrue}/>
                 <p className="commentBtn" style={{cursor: 'pointer', width: 'fit-content'}} onClick={toggleComments}>Comments</p>

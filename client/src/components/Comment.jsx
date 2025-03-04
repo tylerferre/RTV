@@ -8,7 +8,7 @@ const Comment = (props) => {
     return(
         <div className="comment">
            <p><span className="commentName">{props.user.username}</span>: {props.comment}</p>
-           {props.user._id === user._id && <span className="deleteCommentBtn"><button onClick={()=> deleteComment(props._id)}>X</button></span>}
+           {props.user._id === user._id || user.isAdmin && <span className="deleteCommentBtn"><button onClick={()=> deleteComment(props._id)}>X</button></span>}
            <hr />
         </div>
         
