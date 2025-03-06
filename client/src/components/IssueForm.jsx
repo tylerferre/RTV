@@ -9,26 +9,28 @@ const initInputs = {
 
 const IssueForm = (props) => {
 
-    const [inputs, setInputs] = useState(initInputs)
-    const {addIssue} = useContext(UserContext)
+    const [inputs, setInputs] = useState(initInputs);
+    const {addIssue, toggleForm} = useContext(UserContext);
 
     const handleChange = (e) => {
         const {name, value} = e.target
         setInputs(prevState => ({
             ...prevState,
             [name]: value
-        }))
+        }));
     }
 
     const handleSubmit = (e) => {
-        e.preventDefault()
+        e.preventDefault();
 
-        addIssue(inputs)
-        setInputs(initInputs)
+        addIssue(inputs);
+        setInputs(initInputs);
+        toggleForm();
     }
 
     return(
         <form className="issueForm" onSubmit={handleSubmit}>
+            <span onClick={toggleForm} className="material-symbols-outlined">close</span>
             <input 
             type="text" 
             name="title"
@@ -36,7 +38,7 @@ const IssueForm = (props) => {
             onChange={handleChange}
             placeholder="Title"
             />
-            <input 
+            <textarea 
             type="text" 
             name="description"
             value={inputs.description}
@@ -48,4 +50,4 @@ const IssueForm = (props) => {
     )
 }
 
-export default IssueForm
+export default IssueForm;

@@ -1,39 +1,39 @@
 import React, { useState, createContext, useEffect } from "react";
-import axios from 'axios'
+import axios from 'axios';
 
-const UserContext = createContext()
+const UserContext = createContext();
 
-const userAxios = axios.create()
+const userAxios = axios.create();
 
 userAxios.interceptors.request.use(config => {
     const token = localStorage.getItem('token')
     config.headers.Authorization = `Bearer ${token}`
     return config
-})
+});
 
 const UserProvider = (props) => {
     const initState = {
         user: JSON.parse(localStorage.getItem('user')) || {},
         token: localStorage.getItem('token') || '',
         issues: []
-    }
-    const [comments, setComments] = useState([])
-    const [userState, setUserState] = useState(initState)
+    };
+    const [comments, setComments] = useState([]);
+    const [userState, setUserState] = useState(initState);
 
     const signup = (credentials) => {
         axios.post('/proxy/auth/signup', credentials)
         .then(res => {
             const {user, token} = res.data
-            localStorage.setItem('token', token)
-            localStorage.setItem('user', JSON.stringify(user))
+            localStorage.setItem('token', token);
+            localStorage.setItem('user', JSON.stringify(user));
             setUserState(prevState => ({
                 ...prevState,
                 user,
                 token
-            }))
+            }));
         })
         .catch(err => handleAuthErr(err.response.data.errMsg))
-    }
+    };
 
     const login = (credentials) => {
         axios.post('/proxy/auth/login', credentials)
@@ -46,11 +46,11 @@ const UserProvider = (props) => {
                 ...prevState,
                 user,
                 token
-            }))
+            }));
 
         })
         .catch(err => handleAuthErr(err.response.data.errMsg))
-    }
+    };
 
     const logout = () => {
         localStorage.removeItem('token')
@@ -61,21 +61,21 @@ const UserProvider = (props) => {
             issues: [],
             errMsg: '',
         })
-    }
+    };
 
     const handleAuthErr = (errMsg) => {
         setUserState(prevState => ({
             ...prevState,
             errMsg
         }))
-    }
+    };
 
     const resetAuthErr = () => {
         setUserState(prevState => ({
             ...prevState,
             errMsg: ''
-        }))
-    }
+        }));
+    };
 
     const getUserIssues = () => {
         userAxios.get('/proxy/api/issue/user')
@@ -83,22 +83,22 @@ const UserProvider = (props) => {
             setUserState(prevState => ({
                 ...prevState,
                 issues: res.data
-            }))
+            }));
         })
         .catch(err => console.log(err.response.data.errMsg))
-    }
+    };
 
     const getPublicIssues = () => {
         userAxios.get('/proxy/api/issue/public/issue')
         .then(res => {
-            const sorted = res.data.map(item => item).sort((a, b) => b.upVotes.length-a.upVotes.length)
+            const sorted = res.data.map(item => item).sort((a, b) => b.upVotes.length-a.upVotes.length);
             setUserState(prevState => ({
                 ...prevState,
                 issues: sorted
-            }))
+            }));
         })
-        .catch(err => console.log(err.response.data.errMsg))
-    }
+        .catch(err => console.log(err.response.data.errMsg));
+    };
 
     const addIssue = (newIssue) => {
         userAxios.post('/proxy/api/issue', newIssue)
@@ -106,11 +106,11 @@ const UserProvider = (props) => {
             setUserState(prevState => ({
                 ...prevState,
                 issues: [...prevState.issues, res.data]
-            }))
-            getUserIssues()
+            }));
+            getUserIssues();
         })
-        .catch(err => console.log(err.response.data.errMsg))
-    }
+        .catch(err => console.log(err.response.data.errMsg));
+    };
 
     const deleteIssue = (issueId) => {
         userAxios.delete(`/proxy/api/issue/${issueId}`)
@@ -118,23 +118,23 @@ const UserProvider = (props) => {
             {...prevState, issues: prevState.issues.filter(issue => issue._id !== issueId)}
         )))
         .catch(err => console.log(err.response.data.errMsg))
-    }
+    };
 
     const upVote = (issueId) => {
             userAxios.put(`/proxy/api/issue/upVote/${issueId}`)
         .then(res => setUserState(prevUserState => (
             {...prevUserState, issues: prevUserState.issues.map(issues => 
                 issueId !== issues._id ? issues : res.data)})))
-        .catch(err => console.log(err.response.data.errMsg))
-    }
+        .catch(err => console.log(err.response.data.errMsg));
+    };
 
     const downVote = (issueId) => {
         userAxios.put(`/proxy/api/issue/downVote/${issueId}`)
         .then(res => setUserState(prevUserState => (
             {...prevUserState, issues: prevUserState.issues.map(issues =>
                  issueId !== issues._id ? issues : res.data)})))
-        .catch(err => console.log(err.response.data.errMsg))
-    }
+        .catch(err => console.log(err.response.data.errMsg));
+    };
 
     const addComment = (newComment, commentId) => {
         userAxios.post(`/proxy/api/comment/${commentId}`, newComment)
@@ -142,30 +142,36 @@ const UserProvider = (props) => {
             setComments(prevState => ([
                 ...prevState,
                 res.data
-            ]))
-            getComments()
+            ]));
+            getComments();
         })
         .catch(err => console.log(err.response.data.errMsg))
-    }
+    };
 
     const getComments = () => {
         userAxios.get(`/proxy/api/comment/`)
         .then(res => {
-            setComments(res.data)
+            setComments(res.data);
         })
-        .catch(err => console.log(err.response.data.errMsg))
-    }
+        .catch(err => console.log(err.response.data.errMsg));
+    };
 
     const deleteComment = (commentId) => {
         userAxios.delete(`proxy/api/comment/${commentId}`)
         .then(res => setComments(prevState => (
             prevState.filter(item => item._id !== commentId))))
-        .catch(err => console.log(err.response.data.errMsg))
-    }
+        .catch(err => console.log(err.response.data.errMsg));
+    };
 
     useEffect(()=>{
-        getComments()
-    }, [userState])
+        getComments();
+    }, [userState]);
+
+    const [formToggle, setFormToggle] = useState(false);
+
+    const toggleForm = () => {
+        setFormToggle(prevState => !prevState);
+    };
 
     return(
         <UserContext.Provider 
@@ -186,11 +192,13 @@ const UserProvider = (props) => {
                 upVote,
                 downVote,
                 setUserState,
+                toggleForm,
+                formToggle
             }}
         >
             {props.children}
         </UserContext.Provider>
-    )
+    );
 }
 
-export {UserContext, UserProvider}
+export {UserContext, UserProvider};

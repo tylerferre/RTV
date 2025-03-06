@@ -1,22 +1,19 @@
 * {
   box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-    outline: none;
-    text-decoration: none;
-    font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  outline: none;
+  text-decoration: none;
+  font-family: 'Inter', sans-serif;
 }
 
 body{
-  margin: 0;
-  background-color: #242424;
-  color: #ffffff;
   cursor: default;
 }
 
 body::-webkit-scrollbar{
-    display: none;
+  display: none;
 }
 
 button{
@@ -44,16 +41,15 @@ input::placeholder{
   height: 40px;
   background-color: #454545;
   border-bottom: 1px solid #c9c3b8;
-}
-
-.navbar > button {
-  padding: 2px;
-  background-color: #454545;
   color: #c9c3b8;
 }
 
-.navbar > a {
+.navbar a {
   color: #c9c3b8;
+}
+
+.navbar span {
+  cursor: pointer;
 }
 
 /* .authContainer{
@@ -174,9 +170,24 @@ input::placeholder{
 }
 
 .issueList {
+  width: 40%
+}
+
+.issueForm {
+  width: 300px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+  top: 20%;
+  z-index: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* border: 1px solid #c9c3b8; */
+  box-shadow: 0 0 5px 2px #00000035;
+  background-color: #ffff;
+  padding: 25px;
+  border-radius: 5px;
 }
 
 .issueForm button {
@@ -186,13 +197,22 @@ input::placeholder{
   text-shadow: 1.5px 1.5px black;
 }
 
+.issueForm span {
+  width: fit-content;
+  color: #a5a5a5;
+  font-size: 30px;
+  position: absolute;
+  right: 2px;
+  top: 2px;
+  cursor: pointer;
+}
+
 .issue {
   background-color: #ffff;
   margin: 15px;
   padding: 15px;
   border-radius: 10px;
-  width: 300px;
-  border: 1px solid #a5a5a5;
+  /* border: 1px solid #a5a5a5; */
   color: rgb(40, 40, 40);
 }
 
@@ -209,7 +229,7 @@ input::placeholder{
 .issueName{
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   color: #440078;
-  text-shadow: 1px 1px #000000;
+  /* text-shadow: 1px 1px #000000; */
   margin-bottom: 2px;
   font-size: 22px;
 }
@@ -219,6 +239,10 @@ input::placeholder{
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #444444;
+}
+
+.deleteIssueBtn {
+  position: absolute;
 }
 
 .issueTitleDiv .deleteIssueBtn{
@@ -285,10 +309,10 @@ input::placeholder{
 }
 
 .public {
-  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
+  color: #0c0c0c;
 }
 
 .public > h3 {
@@ -301,7 +325,7 @@ input::placeholder{
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
+  color: #0c0c0c;
 }
 
 .profile > h1 {
@@ -315,21 +339,35 @@ input::placeholder{
   text-decoration: underline;
 }
 
-.profile > form {
-  display: flex;
-  flex-direction: column;
-  margin: 15px 0;
-  border: 1px solid #c9c3b8;
-  background-color: #ffff;
-  padding: 16px;
-  border-radius: 5px
-}
-
 .profile > form > input,
 .profile > form > button {
   margin: 8px 0;
   padding: 8px;
   border-radius: 5px
+}
+
+.makePost {
+  border: 1px solid #440078;
+  border-radius: 5px;
+  padding: 8px;
+  color: #440078;
+  background-color: #ffff;
+}
+
+textarea {
+  border: 1px solid #cecece;
+  background-color: #cecece;
+  border-radius: 5px;
+  padding: 8px;
+  height: 70px;
+}
+
+textarea::placeholder {
+  color: #444444;
+}
+
+textarea:focus {
+  border: 1px solid #440078;
 }
 
 .commentForm{
@@ -354,24 +392,23 @@ input::placeholder{
 }
 
 .commentList{
-  background-color: #e3e3e3;
+  background-color: #e5e5e5;
   padding: 8px;
-  width: 230px;
   border-radius: 10px;
   border: 1px solid #a5a5a5;
-  max-height: 70px;
+  max-height: 200px;
   overflow-y: scroll;
   color: #454545;
 }
 
 .commentList::-webkit-scrollbar{
-  width: 5px;
+  width: 4px;
   height: 10px;
   border-radius: 10px;
 }
 
 .commentList::-webkit-scrollbar-thumb{
-  background: #c9c3b8;
+  background: #440078;
   border-radius: 10px;
   height: 1px;
 }
@@ -426,4 +463,10 @@ input::placeholder{
 
 .commentBtn{
   margin: 5px;
+}
+
+@media only screen and (max-width: 900px) {
+  .issueList {
+    width: 100%;
+  }
 }

@@ -1,10 +1,14 @@
-import React, { useContext } from 'react'
-import { UserContext } from '../context/UserProvider'
-import IssueList from './IssueList'
+import React, { useContext, useEffect } from 'react';
+import { UserContext } from '../context/UserProvider';
+import IssueList from './IssueList';
 
 const Public = () => {
 
-    const {issues} = useContext(UserContext)
+    const {issues, getPublicIssues} = useContext(UserContext);
+
+    useEffect(() => {
+        getPublicIssues();
+    }, []);
 
     return(
         <div className='public'>
@@ -14,4 +18,4 @@ const Public = () => {
     )
 }
 
-export default Public
+export default Public;

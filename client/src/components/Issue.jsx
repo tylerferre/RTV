@@ -6,14 +6,14 @@ import CommentList from "./CommentList";
 
 const Issue = (props) => {
 
-    const [toggle, setToggle] = useState(false)
+    const [toggle, setToggle] = useState(false);
 
     const toggleComments = () => {
-        setToggle(prev => !prev)
+        setToggle(prev => !prev);
     }
 
     const setTrue = () => {
-        setToggle(true)
+        setToggle(true);
     }
 
     const {
@@ -22,27 +22,29 @@ const Issue = (props) => {
         upVote,
         downVote,
         user,
-        deleteIssue
-    } = useContext(UserContext)
+    } = useContext(UserContext);
 
-    const filteredComments = comments.filter(item => item.issue === props._id)
-    const upVotesMap = props.upVotes.map(item => item === user._id)
-    const filteredUpVotes = upVotesMap.filter(item => item === true)
-    const downVotesMap = props.downVotes.map(item => item === user._id)
-    const filteredDownVotes = downVotesMap.filter(item => item === true)
+    const filteredComments = comments.filter(item => item.issue === props._id);
+    const upVotesMap = props.upVotes.map(item => item === user._id);
+    const filteredUpVotes = upVotesMap.filter(item => item === true);
+    const downVotesMap = props.downVotes.map(item => item === user._id);
+    const filteredDownVotes = downVotesMap.filter(item => item === true);
 
+    const date = props.createdAt.split('').splice(0, 10).join('');
+    
     const votes = () => {
         if(filteredUpVotes.length === 1){
-            downVote(props._id)
+            downVote(props._id);
         }else{
-            upVote(props._id)
+            upVote(props._id);
         }
     }
-
+    // 
     return(
         <div className="issue">
             <div className="issueTitleDiv">
                 <h3 className="issueName">{props.user.username}</h3>
+                <p>{date}</p>
                 {props.user._id === user._id && <button onClick={()=> deleteIssue(props._id)} className="deleteIssueBtn">X</button>}
             </div>
             <h1>{props.title}</h1>
@@ -64,4 +66,4 @@ const Issue = (props) => {
     )
 }
 
-export default Issue
+export default Issue;
